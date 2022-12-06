@@ -1,0 +1,42 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "127.0.0.1:8069:8069"
+      - "127.0.0.1:3005:3001"
+    depends_on:
+      - db
+    # environment according to https://hub.docker.com/_/odoo seems not to work
+    # environment:
+    #   HOST: db
+    #   USER: odoo
+    #   PASSWORD: odoo
+    volumes:
+      - odoo-data:/var/lib/odoo
+      - ./addons:/mnt/extra-addons
+
+    # Use commnd to overwrite python call to use debugpy
+    command: 'python3 -m debugpy --listen 0.0.0.0:3001 /usr/bin/odoo --db_port=5432 --db_host db --db_user=odoo --db_password=odoo -d odoo --dev=xml -i base'
+
+  db:
+    image: postgres:13
+    # Use port forward if you want to connect to the db via dbeaver
+    # ports:
+    #   - "127.0.0.1:5432:5432"
+
+    # Let Postgres use a little more ram
+    command:
+      - "postgres"
+      - "-c"
+      - "shared_buffers=1GB"
+    environment:
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data
+
+volumes:
+  odoo-data:
+  odoo-db-data:
+

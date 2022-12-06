@@ -1,0 +1,7 @@
+// This config will enable pylint, if you have installed it via homebrew
+{
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "python.linting.pylintPath": "/opt/homebrew/bin/pylint",
+    "python.linting.pylintArgs": ["--load-plugins", "pylint_odoo", "-d", "function_redefined"]
+}

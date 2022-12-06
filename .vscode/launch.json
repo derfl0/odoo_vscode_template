@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Odoo: Attach",
+            "type": "python",
+            "request": "attach",
+            "port": 8069,
+            "debugServer": 3005,
+            "host": "localhost",
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}/addons",
+                    "remoteRoot": "/mnt/extra-addons",
+                },
+
+                // Use this when you have the odoo code present and the debugger should follow this code as well
+                // {
+                //     "localRoot": "${workspaceFolder}/odoo/16.0",
+                //     "remoteRoot": "/usr/lib/python3/dist-packages/odoo",
+                // }
+            ],
+            "logToFile": true
+        }
+    ]
+}
